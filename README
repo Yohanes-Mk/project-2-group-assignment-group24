@@ -1,42 +1,65 @@
-# Warehouse FSM
+🏭 Warehouse FSM (Finite State Machine)
 
-This project implements a warehouse management finite state machine (FSM) with
-both console and Swing-based graphical interfaces. The source now follows a
-standard Java package layout under `WarehouseFSM/src`:
+This project implements a Warehouse Management System using a Finite State Machine (FSM) architecture.
+It supports both console and Swing GUI interfaces for interacting with clients, clerks, and managers.
 
-- `warehouse.*` contains the core domain model and console states.
-- `warehouse.ui.*` contains the GUI controller, frame, and Swing panels.
+📁 Project Structure
 
-## Building
+All source files are organized under WarehouseFSM/src following standard Java package conventions:
 
-From the repository root, compile all sources into the `out` directory:
+Package	Description
+warehouse.*	Core domain classes and FSM console states (clients, products, transactions, etc.)
+warehouse.ui.*	Swing-based GUI implementation — frame, controller, and panel classes for each user role
 
-```powershell
+⚙️ Build Instructions
+
+From the repository root (WarehouseFSM directory), compile all source files into an output folder named out.
+
 cd WarehouseFSM
-if (Test-Path out) { Remove-Item out -Recurse -Force }
-New-Item out -ItemType Directory | Out-Null
-javac -encoding UTF-8 -d out @sources.txt
-```
+# Compile all Java sources recursively
+Get-ChildItem -Recurse -Filter *.java | ForEach-Object { javac -encoding UTF-8 -d out $_.FullName }
 
-> The `@sources.txt` file lists every source file using paths that match the
-> package structure. Compiling files individually (for example, with
-> `Get-ChildItem ... | ForEach-Object { javac ... }`) will no longer fail with
-> missing-symbol errors.
 
-## Running
+💡 Tip: You can safely delete any old out folder before compiling to avoid stale class files.
 
-Run the console FSM:
+▶️ Running the Application
+1. Console Version
 
-```powershell
+Run the original text-based FSM interface:
+
 java -cp out warehouse.WarehouseFSMApp
-```
 
-Run the Swing GUI:
+2. Swing GUI Version
 
-```powershell
+Launch the graphical interface:
+
 java -cp out warehouse.ui.WarehouseGUIApp
-```
 
-Both entry points automatically initialize the shared `WarehouseContext`
-singleton. The GUI falls back to the console version when run in a headless
-environment.
+
+🪶 Note: If the GUI is launched in a headless environment (no display), it will automatically fall back to the console FSM.
+
+🧠 Design Overview
+
+Shared Context: Both console and GUI interfaces use the same WarehouseContext singleton to maintain consistent data and state.
+
+State-Based Navigation: Opening → Clerk → Client → Manager transitions mirror FSM design.
+
+Extensible GUI Panels: Each panel (ClientPanel, ClerkPanel, ManagerPanel, etc.) represents a distinct FSM state and communicates via GuiController.
+
+Modular Packages: Domain logic and interface logic are cleanly separated for maintainability.
+
+🧪 Example Workflow
+
+Manager logs in → adds a product.
+
+Clerk logs in → creates a new client.
+
+Client logs in → views products → places an order → checks transactions.
+
+Manager receives shipment → waitlisted orders are fulfilled.
+
+👩🏽‍💻 Authors
+
+Group 24
+CSCI 411 — Software Systems
+Fall 2025
