@@ -33,7 +33,7 @@ java -cp out warehouse.WarehouseFSMApp
 
 Launch the graphical interface:
 
-java -cp out warehouse.ui.WarehouseGUIApp
+java -cp out WarehouseGUIApp
 
 
 🪶 Note: If the GUI is launched in a headless environment (no display), it will automatically fall back to the console FSM.
