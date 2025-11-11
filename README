@@ -1,3 +1,42 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/Six8SJdb)
-[![Open in Codespaces](https://classroom.github.com/assets/launch-codespace-2972f46106e565e64193e422d61a12cf1da4916b45550586e14ef0a7c637dd04.svg)](https://classroom.github.com/open-in-codespaces?assignment_repo_id=21322001)
-Creating GUI-based FSM
+# Warehouse FSM
+
+This project implements a warehouse management finite state machine (FSM) with
+both console and Swing-based graphical interfaces. The source now follows a
+standard Java package layout under `WarehouseFSM/src`:
+
+- `warehouse.*` contains the core domain model and console states.
+- `warehouse.ui.*` contains the GUI controller, frame, and Swing panels.
+
+## Building
+
+From the repository root, compile all sources into the `out` directory:
+
+```powershell
+cd WarehouseFSM
+if (Test-Path out) { Remove-Item out -Recurse -Force }
+New-Item out -ItemType Directory | Out-Null
+javac -encoding UTF-8 -d out @sources.txt
+```
+
+> The `@sources.txt` file lists every source file using paths that match the
+> package structure. Compiling files individually (for example, with
+> `Get-ChildItem ... | ForEach-Object { javac ... }`) will no longer fail with
+> missing-symbol errors.
+
+## Running
+
+Run the console FSM:
+
+```powershell
+java -cp out warehouse.WarehouseFSMApp
+```
+
+Run the Swing GUI:
+
+```powershell
+java -cp out warehouse.ui.WarehouseGUIApp
+```
+
+Both entry points automatically initialize the shared `WarehouseContext`
+singleton. The GUI falls back to the console version when run in a headless
+environment.

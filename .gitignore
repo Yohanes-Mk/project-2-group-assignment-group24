@@ -1,0 +1,5 @@
+*.class
+/out/
+WarehouseFSM/out/
+WarehouseFSM/bin/
+WarehouseFSM/ui/
