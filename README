@@ -1,65 +1,127 @@
-🏭 Warehouse FSM (Finite State Machine)
+# 🏭 Warehouse FSM (Finite State Machine)
 
-This project implements a Warehouse Management System using a Finite State Machine (FSM) architecture.
-It supports both console and Swing GUI interfaces for interacting with clients, clerks, and managers.
+This project implements a **Warehouse Management System** using a **Finite State Machine (FSM)** architecture.  
+It supports both **console-based** and **Swing GUI-based** interfaces for interacting with **Clients**, **Clerks**, and **Managers**.  
+The GUI version provides a friendly interface for managing clients, products, transactions, and shipments.
 
-📁 Project Structure
+---
 
-All source files are organized under WarehouseFSM/src following standard Java package conventions:
+## 🗂️ Project Structure
 
-Package	Description
-warehouse.*	Core domain classes and FSM console states (clients, products, transactions, etc.)
-warehouse.ui.*	Swing-based GUI implementation — frame, controller, and panel classes for each user role
+All source files are organized under `WarehouseFSM/src`, following standard Java package conventions.
 
-⚙️ Build Instructions
+| Package | Description |
+|----------|-------------|
+| `warehouse.*` | Core domain classes and FSM console states — clients, products, transactions, etc. |
+| `warehouse.ui.*` | Swing-based GUI implementation — main frame, controller, and panel classes for each FSM state. |
+| `warehouse.ui.panels.*` | Individual GUI panels (Opening, Clerk, Manager, Client, Wishlist) with event handlers. |
 
-From the repository root (WarehouseFSM directory), compile all source files into an output folder named out.
+---
 
+## ⚙️ Build Instructions
+
+From the repository root (`WarehouseFSM` directory), compile all source files into the output folder `out`.
+
+```powershell
 cd WarehouseFSM
-# Compile all Java sources recursively
-Get-ChildItem -Recurse -Filter *.java | ForEach-Object { javac -encoding UTF-8 -d out $_.FullName }
 
+# 🧹 Clean previous build (optional but recommended)
+if (Test-Path out) { Remove-Item out -Recurse -Force }
+New-Item -ItemType Directory out | Out-Null
 
-💡 Tip: You can safely delete any old out folder before compiling to avoid stale class files.
+# 🏗️ Compile all Java sources recursively
+Get-ChildItem -Recurse -Filter *.java | ForEach-Object {
+    javac -encoding UTF-8 -d out $_.FullName
+}
+💡 Tip: Always delete any old out folder before compiling to avoid stale class files.
 
-▶️ Running the Application
-1. Console Version
+🚀 Running the Application
+You can launch either the console version or the Swing GUI version.
 
+🖥️ 1. Console Version
 Run the original text-based FSM interface:
 
+
 java -cp out warehouse.WarehouseFSMApp
+🪟 2. Swing GUI Version
+Launch the graphical Swing-based FSM interface:
 
-2. Swing GUI Version
-
-Launch the graphical interface:
 
 java -cp out warehouse.ui.WarehouseGUIApp
+🧠 Note:
+If the GUI is launched in a headless environment (no display), it will automatically fall back to the console version.
+
+🧩 Features Overview
+🎟️ Opening State
+Login as Client, Clerk, or Manager
+
+Create a new Client account
+
+Exit the application safely
+
+👩‍💼 Clerk State
+Add new Clients
+
+List Clients, Products, and Clients with outstanding balances
+
+Record payments
+
+Become a specific Client by ID
+
+Logout
+
+👨‍💼 Manager State
+Add new Products
+
+List Products and Product Waitlists
+
+Receive Shipments and update stock
+
+Switch to Clerk mode
+
+Logout
+
+👤 Client State
+View personal details and balance
+
+Browse available products
+
+Place Orders (auto-add to waitlist if out of stock)
+
+View Transactions
+
+Manage Wishlist (add/remove/view)
+
+Logout
+
+🧾 Wishlist State
+Add or remove items
+
+View current wishlist contents
+
+Place orders directly from wishlist
+
+Navigate back to Client or logout
 
 
-🪶 Note: If the GUI is launched in a headless environment (no display), it will automatically fall back to the console FSM.
+🧑‍💻 Authors
+Group 24 – Warehouse FSM Project
 
-🧠 Design Overview
+Yohanes M.
+Owen H.
+Joliage B.
 
-Shared Context: Both console and GUI interfaces use the same WarehouseContext singleton to maintain consistent data and state.
+Project developed for CSCI 411 – Database Systems (Fall 2025)
 
-State-Based Navigation: Opening → Clerk → Client → Manager transitions mirror FSM design.
 
-Extensible GUI Panels: Each panel (ClientPanel, ClerkPanel, ManagerPanel, etc.) represents a distinct FSM state and communicates via GuiController.
+🏁 Version
+Phase 2 – Swing GUI Implementation
 
-Modular Packages: Domain logic and interface logic are cleanly separated for maintainability.
+Includes:
 
-🧪 Example Workflow
+GUI panels for Opening, Clerk, Manager, Client, and Wishlist states
 
-Manager logs in → adds a product.
+State transitions managed by WarehouseContext
 
-Clerk logs in → creates a new client.
+Full parity with the console FSM implementation from Phase 1
 
-Client logs in → views products → places an order → checks transactions.
-
-Manager receives shipment → waitlisted orders are fulfilled.
-
-👩🏽‍💻 Authors
-
-Group 24
-CSCI 411 — Software Systems
-Fall 2025
